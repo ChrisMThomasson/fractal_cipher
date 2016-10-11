@@ -1,1 +1,1 @@
-Funny Fractal Encryption, a study on entropy.
+Funny Fractal Encryption, a study on fractal entropy.
