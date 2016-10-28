@@ -126,7 +126,7 @@ ct_rifc_load(
     unsigned int base     // Base
 ) {
     ct_complex z = z1;
-    double e = .0000001;
+    double e = .0001;
     std::string symbols;
 
     for (unsigned int i = 0;
@@ -167,13 +167,34 @@ ct_rifc_load(
 
 int main()
 {
+
     {
         ct_complex z(0, 0);
         ct_complex c(-.75, .09);
+        std::size_t complex_size = sizeof(ct_complex) * CHAR_BIT;
+
+        std::printf("complex_size:%lu\n\n", (unsigned long)complex_size);
+
         std::printf("symbols:%s\n", g_ct_rifc_symbols.c_str());
         std::printf("_____________________________________\n");
 
-        std::string stored_symbols("ABC123");
+        std::string stored_symbols(
+            "11011111011111110111111111111111"  // 32 bits
+            "11101111101110111111111111111111"  // 32 bits
+            "11111101111111111111110111111111"  // 32 bits
+            "11111111111101111111111111111111"  // 32 bits
+            "11111111111111111111111111111111"  // 32 bits
+            "11111111111111011111111111111111"  // 32 bits
+            "11111111111111111111101111111111"  // 32 bits
+            "11111111111111111111111111111100"  // 32 bits
+        );
+
+        std::size_t stored_symbols_size = stored_symbols.length();
+        std::printf("stored_symbols.length():%lu\n", 
+            (unsigned long)stored_symbols_size);
+
+
+
         unsigned int base = ct_max_symbol_index(stored_symbols);
 
         std::printf("stored_symbols:%s\n", stored_symbols.c_str());
