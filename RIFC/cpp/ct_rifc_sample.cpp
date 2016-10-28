@@ -1,3 +1,8 @@
+/* Reverse Iteration Fractal Cipher (RIFC)
+   by: Chris M. Thomasson
+_______________________________________________________________ */
+
+
 #include <cstdio>
 #include <cstddef>
 #include <climits>
@@ -94,7 +99,7 @@ ct_rifc_store(
     ct_complex const& c,
     std::string const& symbols,
     unsigned int base
-){
+) {
     ct_complex z = z0;
 
     std::size_t n = symbols.length();
@@ -105,7 +110,7 @@ ct_rifc_store(
 
         z = ct_root(z - c, symbol_index, base);
 
-        std::printf("ct_rifc_store:%c:%u:(%" CT_PREC "lf, %" CT_PREC "lf)\n", 
+        std::printf("ct_rifc_store:%c:%u:(%" CT_PREC "lf, %" CT_PREC "lf)\n",
             symbols[i], symbol_index, z.real(), z.imag());
     }
 
@@ -119,13 +124,13 @@ ct_rifc_load(
     ct_complex const& c,  // Secret Key... ;^)
     ct_complex const& z1, // Return Value From (ct_rifc_store)
     unsigned int base     // Base
-){
+) {
     ct_complex z = z1;
     double e = .0000001;
     std::string symbols;
 
-    for (unsigned int i = 0; 
-         i < 256 && !ct_compare_complex(z, z0, e); 
+    for (unsigned int i = 0;
+        i < 256 && !ct_compare_complex(z, z0, e);
         ++i)
     {
         ct_complex sz = std::pow(z, base) + c;
@@ -148,7 +153,7 @@ ct_rifc_load(
 
         symbols = symbols + symbol;
 
-        std::printf("ct_rifc_load:%c:%u:(%" CT_PREC "lf, %" CT_PREC "lf)\n", 
+        std::printf("ct_rifc_load:%c:%u:(%" CT_PREC "lf, %" CT_PREC "lf)\n",
             symbol, symbol_index, z.real(), z.imag());
 
         z = sz;
@@ -191,6 +196,7 @@ int main()
     }
 
     std::printf("\n\nProgram Complete!\n");
+    std::printf("Hit <ENTER> to exit...\n");
     std::fflush(stdout);
     std::getchar();
 
