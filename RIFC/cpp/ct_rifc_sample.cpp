@@ -1,5 +1,5 @@
 /* Reverse Iteration Fractal Cipher (RIFC)
-   by: Chris M. Thomasson
+by: Chris M. Thomasson
 _______________________________________________________________ */
 
 
@@ -123,15 +123,14 @@ ct_rifc_load(
     ct_complex const& z0, // Origin 
     ct_complex const& c,  // Secret Key... ;^)
     ct_complex const& z1, // Return Value From (ct_rifc_store)
-    unsigned int base     // Base
+    unsigned int base,    // Base,
+    unsigned int n        // Number of symbols to load
 ) {
     ct_complex z = z1;
     double e = .0001;
     std::string symbols;
 
-    for (unsigned int i = 0;
-        i < 256 && !ct_compare_complex(z, z0, e);
-        ++i)
+    for (unsigned int i = 0; i < n; ++i)
     {
         ct_complex sz = std::pow(z, base) + c;
 
@@ -190,7 +189,7 @@ int main()
         );
 
         std::size_t stored_symbols_size = stored_symbols.length();
-        std::printf("stored_symbols.length():%lu\n", 
+        std::printf("stored_symbols.length():%lu\n",
             (unsigned long)stored_symbols_size);
 
 
@@ -201,7 +200,7 @@ int main()
         ct_complex sz = ct_rifc_store(z, c, stored_symbols, base);
         std::printf("_____________________________________\n");
 
-        std::string loaded_symbols = ct_rifc_load(z, c, sz, base);
+        std::string loaded_symbols = ct_rifc_load(z, c, sz, base, stored_symbols_size);
         std::printf("loaded_symbols:%s\n", loaded_symbols.c_str());
         std::printf("_____________________________________\n");
 
