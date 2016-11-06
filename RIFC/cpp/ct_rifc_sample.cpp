@@ -46,7 +46,7 @@ ct_compare(double a, double b, double e)
 bool ct_compare_complex(ct_complex a, ct_complex b, double e)
 {
     bool r = ct_compare(a.real(), b.real(), e);
-    bool i = ct_compare(a.imag(), a.imag(), e);
+    bool i = ct_compare(a.imag(), b.imag(), e);
     return r && i;
 }
 
